@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Adam Gersowitz Module 5 HW</title>
+	<h1>Adam Gersowitz Module 5 HW</h1>
+</head>
+<body>
+	<form name="mod">
+		<h3>Reverse the Input Word</h3>
+
+		Word: <input type="text" name="txt1"><input type="button" value="Flip" onClick="reverseString()">
+		
+		Flipped Word : <input type="text" name="txtres"><br>
+		
+		<br>
+
+		<h3>Get the Fisrt 20 Multiples of Input Number</h3>
+
+		Number: <input type="Number" name="num1">
+
+		<input type="button" value="Calculate" onClick="maketable()"><br><br><br>
+
+		
+		Multiples Table: <table id="myTable", name="tab1">
+  							<tbody id ="testBody">
+  							</tbody>
+						</table>
+		<br>
+		<h3>Presidents Table</h3><br>
+
+		President:(Output below table) <input type="text" name="txt3"><input type="button" value="filter" onClick="filtertable()">
+
+
+
+		<script type="text/javascript" src="http://d3js.org/d3.v4.min.js"></script>
+		<script type="text/javascript">
+			//https://gist.github.com/jfreels/6734025
+
+		d3.csv("https://raw.githubusercontent.com/charleyferrari/CUNY_DATA_608/master/module5/data/presidents.csv").get(function(errors,data){
+     	function tabulate(data, columns) {
+        var table = d3.select('body').append('table')
+        var thead = table.append('thead')
+        var tbody = table.append('tbody');
+
+        // append the header row
+        thead.append('tr')
+          .selectAll('th')
+          .data(columns).enter()
+          .append('th')
+            .text(function (column) { return column; });
+
+        // create a row for each object in the data
+        var rows = tbody.selectAll('tr')
+          .data(data)
+          .enter()
+          .append('tr');
+
+        // create a cell in each row for each column
+        var cells = rows.selectAll('td')
+          .data(function (row) {
+            return columns.map(function (column) {
+              return {column: column, value: row[column]};
+            });
+          })
+          .enter()
+          .append('td')
+            .text(function (d) { return d.value; });
+
+      return table;;
+    }
+
+    // render the table(s)
+     tabulate(data, ['Name', 'Height', 'Weight'])
+     
+     ; // 2 column table
+
+});
+
+		</script>
+		
+
+						  	
+
+
+	</form>
+	<script type="text/Javascript">
+		
+		function reverseString() 
+		{
+			var t1, res;
+			t1=(document.mod.txt1.value)
+    		res=t1.split("").reverse().join("");
+    		document.mod.txtres.value=res;
+		}
+
+
+		function maketable() 
+		{
+			var n1, res2;
+			n1=(document.mod.num1.value)
+    		res2='<tr><td>'+String(n1)+'</td><td>'+String(n1*2)+'</td><td>'+String(n1*3)+'</td><td>'+String(n1*4)+'</td></tr> <tr><td>'+String(n1*5)+'</td><td>'+String(n1*6)+'</td><td>'+String(n1*7)+'</td><td>'+String(n1*8)+'</td></tr> <tr><td>'+String(n1*9)+'</td><td>'+String(n1*10)+'</td><td>'+String(n1*11)+'</td><td>'+String(n1*12)+'</td></tr> <tr><td>'+String(n1*13)+'</td><td>'+String(n1*14)+'</td><td>'+String(n1*15)+'</td><td>'+String(n1*16)+'</td></tr> <tr><td>'+String(n1*17)+'</td><td>'+String(n1*18)+'</td><td>'+String(n1*19)+'</td><td>'+String(n1*20)+'</td></tr>'
+    		document.getElementById("testBody").innerHTML=res2;
+		}
+
+		function filtertable() {
+  // Declare variables
+  		d3.csv("https://raw.githubusercontent.com/charleyferrari/CUNY_DATA_608/master/module5/data/presidents.csv").get(function(errors,data){
+     	function tabulate(data, columns) {
+     	var t3 = (document.mod.txt3.value)
+        var table = d3.select('body').append('table')
+        var thead = table.append('thead')
+        var tbody = table.append('tbody');
+
+        // append the header row
+        thead.append('tr')
+          .selectAll('th')
+          .data(columns).enter()
+          .append('th')
+            .text(function (column) { return column; });
+
+        // create a row for each object in the data
+        var rows = tbody.selectAll('tr')
+          .data(data)
+          .enter()
+          .append('tr')
+          .filter(function(d) { return d.Name == t3 });
+
+        // create a cell in each row for each column
+        var cells = rows.selectAll('td')
+          .data(function (row) {
+            return columns.map(function (column) {
+              return {column: column, value: row[column]};
+            });
+          })
+          .enter()
+          .append('td')
+            .text(function (d) { return d.value; })
+            return table;;;
+    }
+
+    // render the table(s)
+     tabulate(data, ['Name','Height', 'Weight']);
+     ;
+     ; // 2 column table
+
+});
+}
+
+	</script>
+</body>
+</html
