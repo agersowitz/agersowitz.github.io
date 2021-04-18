@@ -36,7 +36,7 @@
 		<script type="text/javascript">
 			//https://gist.github.com/jfreels/6734025
 
-		d3.csv("https://raw.githubusercontent.com/charleyferrari/CUNY_DATA_608/master/module5/data/presidents.csv").get(function(errors,data){
+		d3.csv("pres.csv").get(function(errors,data){
      	function tabulate(data, columns) {
         var table = d3.select('body').append('table')
         var thead = table.append('thead')
